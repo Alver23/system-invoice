@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProfilesTable extends Migration
+class CreateMenusTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateProfilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('profiles', function (Blueprint $table) {
-            $table->increments('id')->comment('id de la tabla primaria');
-            $table->uuid('uuid')->nullable()->unique()->index()->nullable('Campo unico para la seguridad del registro');
-            $table->string('name')->comment('Nombre del perfil');
-            $table->text('description')->nullable();
+        Schema::create('menus', function (Blueprint $table) {
+            $table->increments('id');
+            $table->uuid('uuid')->nullable()->unique()->index();
+            $table->integer('parent_menu_id')->unsigned()->comment('Identifica si es un menu hijo, en caso contrario es null')->nullable();
+            $table->string('url')->comment('url donde apunta el menu');
+            $table->string('name', 80)->comment('nombre del menu');
+            $table->tinyInteger('orden')->unsigned()->comment('Orden para los item del menu');
             $table->string('ip_address', 15)->default('127.0.0.1')->comment('Ip address donde se realiza el registro');
             $table->integer('owner_user_id')->unsigned()->nullable()->comment('usuario quien crea el registro');
             $table->integer('updater_user_id')->unsigned()->nullable()->comment('Usuario quien actualiza el registro');
@@ -35,6 +37,6 @@ class CreateProfilesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('profiles');
+        Schema::dropIfExists('menus');
     }
 }

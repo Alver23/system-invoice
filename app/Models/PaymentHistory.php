@@ -4,7 +4,7 @@ namespace SystemInvoices;
 
 use Illuminate\Database\Eloquent\Model;
 
-class MenuHasRole extends Model
+class PaymentHistory extends Model
 {
     //
 }

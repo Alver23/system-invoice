@@ -4,10 +4,11 @@ namespace SystemInvoices;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use SystemInvoices\Observers\UuidObserver;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, UuidObserver;
 
     /**
      * The attributes that are mass assignable.
